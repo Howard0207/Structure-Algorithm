@@ -62,21 +62,24 @@ let Stack = (function () {
 })()
 
 /**
- * 
+ * 进制转换
  * @param {Type: Number, desc: 传入的10进制数 } decNumber 
+ * @param {Type: Number, desc: 传入的想要转换的进制数} base
+ * @return {Type: String, desc: 转换后的数字字符串} binaryString
  */
-function divideBy2 (decNumber) {
-    let stack = new Stack(), remainder, binaryString = '';
+function divideBy2 (decNumber,base) {
+    let stack = new Stack(), remainder, binaryString = '', digits = '0123456789ABCDEF';
+    base = base || 2;
     while(decNumber>0) {
-        remainder = Math.floor(decNumber % 2);
+        remainder = Math.floor(decNumber % base);
         stack.push(remainder);
-        decNumber = Math.floor(decNumber / 2);
+        decNumber = Math.floor(decNumber / base);
     }
     while(!stack.isEmpty()) {
-        binaryString += stack.pop().toString();
+        binaryString += digits[stack.pop().toString()];
     }
     return binaryString;
 }
 
-let bin = divideBy2(8);
+let bin = divideBy2(78, 16);
 console.log(bin);
