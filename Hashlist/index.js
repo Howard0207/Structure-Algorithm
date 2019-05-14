@@ -6,11 +6,11 @@
 const HashTable = (function () {
     let table = new WeakMap();
     let loseloseHashCode = key => {
-        let hash = 0; //{1}
-        for (let i = 0; i < key.length; i++) { //{2}
-            hash += key.charCodeAt(i); //{3}
+        let hash = 0;
+        for (let i = 0; i < key.length; i++) {
+            hash += key.charCodeAt(i);
         }
-        return hash % 37; //{4}
+        return hash % 37;
     };
     class HashTable {
         constructor() {
@@ -59,3 +59,8 @@ console.log(hash.get('Gandalf'));
 console.log(hash.get('Loiane'));
 hash.remove('Gandalf');
 console.log(hash.get('Gandalf'));
+
+/**
+ * 通过loseloseHashCode映射函数进行映射时，可能会出现映射地址冲突进而导致数据被覆盖。当我们使用一种数据结构的时候，我们是希望能够保存全部数据，而不是丢失
+ * 这些数据。当发生这种情况时，我们就要想办法去解决他-》 分离链接、先行探查。
+ */
