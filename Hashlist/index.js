@@ -3,6 +3,19 @@
  * 给定表M，存在函数f(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在表中的地址，则称表M为哈希(Hash）表，函数f(key)为哈希(Hash) 函数。
  */
 
+
+/**
+ * a better mapping function
+ * @param {*} key 
+ */
+var djb2HashCode = function (key) {
+    var hash = 5381;
+    for (var i = 0; i < key.length; i++) {
+        hash = hash * 33 + key.charCodeAt(i);
+    }
+    return hash % 1013;
+}
+
 const HashTable = (function () {
     let table = new WeakMap();
     let loseloseHashCode = key => {
@@ -23,7 +36,7 @@ const HashTable = (function () {
          * @param {type: Any, desc: '存储的值'} value 
          */
         put(key, value) {
-            let hashTable = table.get(this); 
+            let hashTable = table.get(this);
             let position = loseloseHashCode(key);
             console.log(position + ' - ' + key);
             hashTable[position] = value;
@@ -34,7 +47,7 @@ const HashTable = (function () {
          * @param {type: String, desc: '键值'} key 
          */
         remove(key) {
-            let hashTable = table.get(this); 
+            let hashTable = table.get(this);
             hashTable[loseloseHashCode(key)] = undefined;
         }
 
@@ -43,7 +56,7 @@ const HashTable = (function () {
          * @param {type: String, desc: '键值'} key 
          */
         get(key) {
-            let hashTable = table.get(this); 
+            let hashTable = table.get(this);
             return hashTable[loseloseHashCode(key)];
         }
     }
