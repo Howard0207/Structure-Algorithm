@@ -19,8 +19,8 @@ const HashTable = (function () {
 
         /**
          * 向散列表增加一个新的项（也能更新散列表）。
-         * @param {*} key 
-         * @param {*} value 
+         * @param {type: String, desc: '键值'} key 
+         * @param {type: Any, desc: '存储的值'} value 
          */
         put(key, value) {
             let hashTable = table.get(this); 
@@ -31,7 +31,7 @@ const HashTable = (function () {
 
         /**
          * 根据键值从散列表中移除值。
-         * @param {*} key 
+         * @param {type: String, desc: '键值'} key 
          */
         remove(key) {
             let hashTable = table.get(this); 
@@ -40,7 +40,7 @@ const HashTable = (function () {
 
         /**
          * 返回根据键值检索到的特定的值。
-         * @param {*} key 
+         * @param {type: String, desc: '键值'} key 
          */
         get(key) {
             let hashTable = table.get(this); 
