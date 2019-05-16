@@ -3,6 +3,8 @@
  * index+2的位置，以此类推。
  */
 const HashList = (function() {
+    const len = 1013;
+
     let items = new WeakMap();
 
     let looselooseHashCode = key => {
@@ -10,7 +12,7 @@ const HashList = (function() {
         for (let i = 0, len = key.length; i < len; i++) {
             hash += key.charCodeAt(i);
         }
-        return hash % 37; // 37决定了这个散列表的表长，这里最好取质数。
+        return hash % len; // 37决定了这个散列表的表长，这里最好取质数。
     }
 
     class ValuePair {
@@ -39,14 +41,14 @@ const HashList = (function() {
         put(key, value) {
             let hashList = items.get(this);
             let hashCode = looselooseHashCode(key);
-            while(true) {
+            while(hashCode < len) {
                 if(hashList[hashCode] === undefined) {
                     hashList[hashCode] = new ValuePair(key, value);
-                    break;
+                    return true;
                 }
-                console.log(hashCode);
                 hashCode ++ ;
             }
+            return false;
         }
 
         /**
@@ -57,7 +59,7 @@ const HashList = (function() {
             let hashList = items.get(this);
             let hashCode = looselooseHashCode(key);
             if(hashList[hashCode] !== undefined) {
-                while(true) {
+                while(hashCode < len) {
                     if(hashList[hashCode].key === key) {
                         hashList[hashCode] = undefined;
                         return true;
@@ -76,7 +78,7 @@ const HashList = (function() {
             let hashList = items.get(this);
             let hashCode = looselooseHashCode(key);
             if(hashList[hashCode] !== undefined) {
-                while(true) {
+                while(hashCode < len) {
                     if(hashList[hashCode].key === key) {
                         return hashList[hashCode].val;
                     }

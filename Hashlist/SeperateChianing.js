@@ -1,5 +1,7 @@
 import LinkedList from '../LinkList';
 const HashList = (function() {
+    const len = 1013;
+
     let items = new WeakMap();
 
     let looselooseHashCode = key => {
@@ -7,7 +9,7 @@ const HashList = (function() {
         for (let i = 0, len = key.length; i < len; i++) {
             hash += key.charCodeAt(i);
         }
-        return hash % 37; // 37决定了这个散列表的表长，这里最好取质数。
+        return hash % len; // 37决定了这个散列表的表长，这里最好取质数。
     }
 
     class ValuePair {
