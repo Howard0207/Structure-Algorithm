@@ -30,33 +30,34 @@ const AVLTree = (function () {
         }
     }
 
-    var insertNode = function (node, element) {
-        if (node === null) {
-            node = new Node(element);
-        } else if (element < node.key) {
-            node.left = insertNode(node.left, element);
-            if (node.left !== null) {
-                if ((heightNode(node.left) - heightNode(node.right)) > 1) {
-                    if (element < node.left.key) {
-                        node = rotationLL(node);
+    var insertNode = function (prev, newNode) {
+        if (newNode.key < node.key) {
+            if (prev.left === null) {
+                prev.left = newNode;
+            } else {
+                node.left = insertNode(prev.left, newNode);
+                if ((heightNode(prev.left) - heightNode(prev.right)) > 1) {
+                    if (newNode.key < prev.left.key) {
+                        prev = rotationLL(prev);
                     } else {
-                        node = rotationLR(node);
+                        prev = rotationLR(prev);
                     }
                 }
             }
-        } else if (element > node.key) {
-            node.right = insertNode(node.right, element);
-            if (node.right !== null) {
-                if ((heightNode(node.right) - heightNode(node.left)) > 1) {
-                    if (element > node.right.key) {
-                        node = rotationRR(node);
+        } else if (newNode.key > node.key) {
+            if (prev.right === null) {
+                prev.right = newNode;
+            } else {
+                prev.right = insertNode(prev.right, newNode);
+                if ((heightNode(prev.right) - heightNode(prev.left)) > 1) {
+                    if (newNode.key > prev.right.key) {
+                        prev = rotationRR(prev);
                     } else {
-                        node = rotationRL(node);
+                        prev = rotationRL(prev);
                     }
                 }
             }
         }
-        return node;
     };
 
     let inOrderTraverseNode = (node, callback) => {
