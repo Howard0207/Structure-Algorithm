@@ -16,6 +16,7 @@ let Queue = (function () {
 
         /**
          * 出队， 移除队列第一项，并返回移除的元素
+         * @returns {type: element, desc: '返回移出队列的第一项'} element
          */
         dequeue() {
             let s = items.get(this);
@@ -73,4 +74,6 @@ console.log(que.dequeue());
 console.log(que.dequeue());
 console.log(que.dequeue());
 console.log(que.dequeue());
+
+module.exports = Queue;
 

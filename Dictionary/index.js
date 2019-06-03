@@ -86,7 +86,6 @@ const Dictionary = (function () {
     }
     return Dictionary;
 })()
-
 let dictionary = new Dictionary();
 dictionary.set('Gandalf', 'gandalf@email.com');
 dictionary.set('John', 'johnsnow@email.com');
@@ -101,3 +100,4 @@ console.log(dictionary.has('Gandalf'));
 console.log(dictionary.size());
 console.log(dictionary.values());
 console.log(dictionary.get('Tyrion'));
+module.exports = Dictionary;
